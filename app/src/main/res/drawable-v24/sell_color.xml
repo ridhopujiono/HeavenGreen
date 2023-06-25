@@ -1,0 +1,13 @@
+<!-- my_button_background.xml -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <solid android:color="#FFC107" /> <!-- Warna latar belakang saat tombol ditekan -->
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#FF9800" /> <!-- Warna latar belakang default tombol -->
+        </shape>
+    </item>
+</selector>

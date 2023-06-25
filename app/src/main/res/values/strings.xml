@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Heaven Green</string>
+    <string-array name="trashType">
+        <item>Plastik</item>
+        <item>Besi</item>
+        <item>Kertas</item>
+        <item>Kaca</item>
+    </string-array>
+    <string-array name="trashTypeValues">
+        <item>2000</item>
+        <item>4000</item>
+        <item>2500</item>
+        <item>3000</item>
+    </string-array>
+    <string-array name="location">
+        <item>Tegalbang</item>
+        <item>Nguluhan</item>
+        <item>Dawung</item>
+    </string-array>
+
+</resources>
