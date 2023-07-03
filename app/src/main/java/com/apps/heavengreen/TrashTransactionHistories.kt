@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.ListView
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.lifecycleScope
 import com.apps.heavengreen.application.HeavenGreenDatabase
 import com.apps.heavengreen.databinding.ActivityTrashTransactionHistoriesBinding
@@ -17,7 +18,9 @@ class TrashTransactionHistories : AppCompatActivity() {
     private lateinit var trashTransactionRepository: TrashTransactionRepository
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_trash_transaction_histories)
+        binding = ActivityTrashTransactionHistoriesBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
 
         // Inisialisasi repository dan model database
         val heavenGreenDatabase = HeavenGreenDatabase.getDatabase(this)
@@ -31,6 +34,14 @@ class TrashTransactionHistories : AppCompatActivity() {
 
         // Panggil metode untuk mengambil dan menampilkan data transaksi sampah
         fetchTransactionData()
+
+        // Set listener untuk klik item pada ListView
+        binding.listView.setOnItemClickListener { _, _, position, _ ->
+            val transaction = transactionListAdapter.getItem(position)
+
+            // Tampilkan dialog konfirmasi delete atau edit
+            showOptionsDialog(transaction)
+        }
 
     }
     private fun fetchTransactionData() {
@@ -52,6 +63,40 @@ class TrashTransactionHistories : AppCompatActivity() {
 
             // Perbarui tampilan ListView
             transactionListAdapter.notifyDataSetChanged()
+        }
+    }
+
+    private fun showOptionsDialog(transaction: TrashTransactionModel?) {
+        val options = arrayOf("Delete", "Edit")
+
+        AlertDialog.Builder(this)
+            .setTitle("Options")
+            .setItems(options) { _, which ->
+                when (which) {
+                    0 -> deleteTransaction(transaction)
+                    1 -> editTransaction(transaction)
+                }
+            }
+            .show()
+    }
+
+
+    private fun deleteTransaction(transaction: TrashTransactionModel?) {
+        if (transaction != null) {
+            lifecycleScope.launch {
+                trashTransactionRepository.deleteTrashTransaction(transaction)
+
+                // Refresh data setelah delete
+                getAllTrashTransaction()
+            }
+        }
+    }
+
+    private fun editTransaction(transaction: TrashTransactionModel?) {
+        if (transaction != null) {
+            // Implementasi aksi edit sesuai kebutuhan Anda
+            // Misalnya, buka activity atau dialog untuk mengedit data transaksi
+            // Setelah proses edit selesai, Anda dapat memanggil getAllTrashTransaction() untuk me-refresh data
         }
     }
 }
