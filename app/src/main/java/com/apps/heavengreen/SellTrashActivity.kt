@@ -105,10 +105,10 @@ class SellTrashActivity : AppCompatActivity() {
         binding.trashSellButton.setOnClickListener {
             val newTrashTransaction = TrashTransactionModel(trash_type = trashTypeEnumVal,
                 user_id = 1,
-                notes = notes.toString(),
+                notes = notes.text.toString(),
                 weight = weightNow,
                 price = priceNow.toDouble(),
-                trash_name = trashName.toString(),
+                trash_name = trashName.text.toString(),
                 status = "PENDING")
             insertTrashTransaction(newTrashTransaction)
             Toast.makeText(this, "Penjualan ditambahkan", Toast.LENGTH_SHORT).show()
