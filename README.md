@@ -17,3 +17,7 @@
 ## Menu Lihat History Penjualan
 ###### Deskripsi: Ini adalah menu history penjualan, dimana disini akan ada beberapa sampah yang pernah dijual
 <img src="https://i.ibb.co/ccpPGZ0/Screenshot-2023-07-04-00-01-18.png" alt="Screenshot-2023-07-04-00-01-18" border="0" width="300px" />
+
+## Menu Edit Penjualan
+###### Deskripsi: Ini adalah menu edit penjualan, dimana di sini hanya bisa edit deskripsi dan nama sampah
+<a href="https://imgbb.com/"><img src="https://i.ibb.co/qnhpp7Q/Screenshot-2023-07-04-01-20-08.png" alt="Screenshot-2023-07-04-01-20-08" border="0" width="300px" />

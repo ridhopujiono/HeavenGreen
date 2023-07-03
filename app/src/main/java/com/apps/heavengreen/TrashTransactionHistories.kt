@@ -1,5 +1,6 @@
 package com.apps.heavengreen
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
@@ -94,9 +95,10 @@ class TrashTransactionHistories : AppCompatActivity() {
 
     private fun editTransaction(transaction: TrashTransactionModel?) {
         if (transaction != null) {
-            // Implementasi aksi edit sesuai kebutuhan Anda
-            // Misalnya, buka activity atau dialog untuk mengedit data transaksi
-            // Setelah proses edit selesai, Anda dapat memanggil getAllTrashTransaction() untuk me-refresh data
+            // Buka activity edit transaksi dengan mengirimkan data transaksi yang akan diedit
+            val intent = Intent(this, EditTransactionActivity::class.java)
+            intent.putExtra("transaction", transaction)
+            startActivity(intent)
         }
     }
 }
