@@ -5,15 +5,22 @@ import com.apps.heavengreen.models.TrashTransactionModel
 import kotlinx.coroutines.flow.Flow
 
 class TrashTransactionRepository(private val transactionDao: TrashTransactionDao) {
-    val allTrashTransactionHistory: Flow<List<TrashTransactionModel>> = transactionDao.getTransactions()
 
-    suspend fun insertTrashTransaction(transaction: TrashTransactionDao){
-        transaction.insert(transaction)
+    suspend fun getAllTrashTransaction(): List<TrashTransactionModel> {
+        return transactionDao.getTransactions()
     }
-    suspend fun deleteTrashTransaction(transaction: TrashTransactionDao){
-        transaction.delete(transaction)
+
+    suspend fun getTrashTransactionByUserId(userId: Int): TrashTransactionModel {
+        return transactionDao.getTransactionsByUserId(userId)
     }
-    suspend fun updateTrashTransaction(transaction: TrashTransactionDao){
-        transaction.update(transaction)
+
+    suspend fun insertTrashTransaction(transaction: TrashTransactionModel){
+        transactionDao.insert(transaction)
+    }
+    suspend fun deleteTrashTransaction(transaction: TrashTransactionModel){
+        transactionDao.delete(transaction)
+    }
+    suspend fun updateTrashTransaction(transaction: TrashTransactionModel){
+        transactionDao.update(transaction)
     }
 }

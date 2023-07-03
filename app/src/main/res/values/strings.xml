@@ -6,6 +6,12 @@
         <item>Kertas</item>
         <item>Kaca</item>
     </string-array>
+    <string-array name="trashTypeEnum">
+        <item>PLASTIC</item>
+        <item>STEEL</item>
+        <item>PAPER</item>
+        <item>GLASS</item>
+    </string-array>
     <string-array name="trashTypeValues">
         <item>2000</item>
         <item>4000</item>

@@ -18,24 +18,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/poppins"
-            android:text="Lokasi Bank Sampah"
-            android:textSize="15dp"
-            android:textStyle="bold" />
-
-        <Spinner
-            android:id="@+id/location"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/edit_text_background"
-            android:entries="@array/location"
-            android:padding="16dp" />
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:fontFamily="@font/poppins"
             android:text="Jenis Sampah"
             android:textSize="15dp"
             android:textStyle="bold" />
@@ -75,7 +57,7 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/input"
+            android:id="@+id/trashName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/edit_text_background"
@@ -91,7 +73,7 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/textarea"
+            android:id="@+id/notes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/edit_text_background"
@@ -128,6 +110,7 @@
         </RelativeLayout>
 
         <Button
+            android:id="@+id/trashSellButton"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="20dp"

@@ -10,24 +10,17 @@ import kotlinx.parcelize.Parcelize
 data class TrashTransactionModel (
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
-    val trash_type: TrashType,
-    val user_id: Int=0,
-    val buyer_id: Int=0,
+    val trash_type: String,
+    val user_id: Int = 0,
     val notes: String,
+    val trash_name: String,
     val weight: Double,
     val price: Double,
-    val status: Status
-    ): Parcelable
+    val status: String
+) : Parcelable {
+    override fun toString(): String {
 
-enum class Status {
-    SUCCESS,
-    CANCELED,
-    PENDING
-}
-
-enum class TrashType{
-    PLASCTIC,
-    STEEL,
-    PAPER,
-    GLASS
+        return "Nama Sampah: $trash_name\n"+
+                "Status: $status"
+    }
 }

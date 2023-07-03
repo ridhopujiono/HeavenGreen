@@ -343,21 +343,21 @@
 
                 >
                 <RelativeLayout
-                    android:id="@id/mitraMenu"
+                    android:id="@id/historiesMenu"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" android:layout_centerHorizontal="true">
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/mitra"
+                        android:src="@drawable/recent"
                         />
 
                 </RelativeLayout>
                 <TextView
-                    android:layout_below="@+id/mitraMenu"
+                    android:layout_below="@+id/historiesMenu"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Mitra Bisnis"
+                    android:text="History Penjualan"
                     android:textSize="10dp"
                     android:fontFamily="@font/poppins"
                     android:layout_marginTop="2dp"
