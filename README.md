@@ -12,7 +12,7 @@
 
 ## Menu Jual Sampah
 ###### Deskripsi: Ini adalah menu jual sampah, dimana user akan menjual sampahnya ke pembeli (bank sampah). Masing masing jenis sampah akan memiliki harga bervariasi per KG nya
-<img src="https://i.ibb.co/72m94h0/Screenshot-2023-06-25-18-15-32.png" alt="Screenshot-2023-06-25-18-11-38" border="0"  width="300px">
+<img src="https://i.ibb.co/jw3MHYS/Screenshot-2023-07-22-23-30-46.png" alt="Screenshot-2023-07-22-23-30-46" border="0" width="300px" />
 
 ## Menu Lihat History Penjualan
 ###### Deskripsi: Ini adalah menu history penjualan, dimana disini akan ada beberapa sampah yang pernah dijual

@@ -16,7 +16,9 @@ data class TrashTransactionModel (
     val trash_name: String,
     val weight: Double,
     val price: Double,
-    val status: String
+    val status: String,
+    val lat: String,
+    val lang: String
 ) : Parcelable {
     override fun toString(): String {
 

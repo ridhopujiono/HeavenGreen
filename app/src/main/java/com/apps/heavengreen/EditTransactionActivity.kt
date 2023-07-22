@@ -24,6 +24,8 @@ class EditTransactionActivity : AppCompatActivity() {
     private var weight = 0.0
     private var price = 0.0
     private var status = ""
+    private var lat = ""
+    private var lng = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,6 +56,9 @@ class EditTransactionActivity : AppCompatActivity() {
             weight = it.weight
             price = it.price
             status = it.status
+            lat = it.lat
+            lng = it.lang
+
         }
 
         // Set listener untuk tombol simpan
@@ -81,7 +86,9 @@ class EditTransactionActivity : AppCompatActivity() {
             user_id = idUser.toInt(),
             weight = weight.toDouble(),
             price = price,
-            status = status
+            status = status,
+            lat = lat,
+            lang = lng
         )
 
         // Menyimpan perubahan transaksi ke dalam database (atau proses penyimpanan sesuai kebutuhan aplikasi)

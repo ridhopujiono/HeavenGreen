@@ -1,6 +1,8 @@
 package com.apps.heavengreen
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
@@ -12,18 +14,35 @@ import android.widget.EditText
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import com.apps.heavengreen.application.HeavenGreenDatabase
 import com.apps.heavengreen.dao.TrashTransactionDao
 import com.apps.heavengreen.databinding.ActivitySellTrashBinding
 import com.apps.heavengreen.models.TrashTransactionModel
 import com.apps.heavengreen.repositories.TrashTransactionRepository
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import kotlinx.coroutines.launch
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
+import com.google.android.gms.maps.model.MarkerOptions
 
-class SellTrashActivity : AppCompatActivity() {
+class SellTrashActivity : AppCompatActivity(), OnMapReadyCallback {
+    private var coordinateLat = ""
+    private var coordinateLong = ""
     private lateinit var binding: ActivitySellTrashBinding;
     private lateinit var trashTransactionRepository: TrashTransactionRepository
     private lateinit var trashTransactionDao: TrashTransactionDao
+    private lateinit var mMap: GoogleMap
+    private var marker: Marker? = null
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,6 +51,11 @@ class SellTrashActivity : AppCompatActivity() {
         var binding: ActivitySellTrashBinding = ActivitySellTrashBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+
+        val mapFragment = supportFragmentManager.findFragmentById(R.id.mapFragment) as SupportMapFragment
+        mapFragment.getMapAsync(this)
 
 
         var heavenGreenDatabase = HeavenGreenDatabase.getDatabase(this)
@@ -109,7 +133,10 @@ class SellTrashActivity : AppCompatActivity() {
                 weight = weightNow,
                 price = priceNow.toDouble(),
                 trash_name = trashName.text.toString(),
-                status = "PENDING")
+                status = "PENDING",
+                lat = coordinateLat,
+                lang = coordinateLong
+                )
             insertTrashTransaction(newTrashTransaction)
             Toast.makeText(this, "Penjualan ditambahkan", Toast.LENGTH_SHORT).show()
             val intent = Intent(this, MainActivity::class.java)
@@ -125,4 +152,68 @@ class SellTrashActivity : AppCompatActivity() {
             trashTransactionRepository.insertTrashTransaction(trashTransaction)
         }
     }
+
+    override fun onMapReady(googleMap: GoogleMap) {
+        mMap = googleMap
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            mMap.isMyLocationEnabled = true
+            getLastKnownLocationAndAddMarker()
+        } else {
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), LOCATION_PERMISSION_REQUEST_CODE)
+        }
+
+        mMap.setOnMapClickListener { latLng ->
+            moveMarker(latLng)
+        }
+        mMap.setOnMarkerDragListener(object : GoogleMap.OnMarkerDragListener {
+            override fun onMarkerDragStart(marker: Marker) {}
+
+            override fun onMarkerDrag(marker: Marker) {}
+
+            override fun onMarkerDragEnd(marker: Marker) {
+                moveMarker(marker.position)
+            }
+        })
+
+        mMap.uiSettings.isScrollGesturesEnabled = true
+    }
+
+    private fun getLastKnownLocationAndAddMarker() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            fusedLocationClient.lastLocation.addOnSuccessListener { location ->
+                location?.let {
+                    val latLng = LatLng(location.latitude, location.longitude)
+                    moveCamera(latLng)
+                }
+            }
+        }
+    }
+
+    private fun moveCamera(latLng: LatLng) {
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, DEFAULT_ZOOM))
+        addMarker(latLng)
+    }
+
+    private fun moveMarker(latLng: LatLng) {
+        marker?.position = latLng
+
+        val latitude = latLng.latitude
+        val longitude = latLng.longitude
+
+        coordinateLat = latitude.toString()
+        coordinateLong = longitude.toString()
+    }
+
+    private fun addMarker(latLng: LatLng) {
+        marker?.remove()
+        marker = mMap.addMarker(MarkerOptions().position(latLng).draggable(true).icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_marker)))
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15f))
+    }
+
+    companion object {
+        private const val LOCATION_PERMISSION_REQUEST_CODE = 1
+        private const val DEFAULT_ZOOM = 15f
+    }
+
 }
