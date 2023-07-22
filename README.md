@@ -4,7 +4,7 @@
 ## Splash Screen
 ###### Deskripsi: Ini adalah halaman yang pertama kali di load
 
-<img src="https://i.ibb.co/608r9L7/Screenshot-2023-06-25-18-09-29.png" alt="Screenshot-2023-06-25-18-09-29" border="0" width="300px" />
+<img src="https://camo.githubusercontent.com/8683322f89b968b94016ef23a6f77fc4af1fabca88d7f892db1f60b61af755e2/68747470733a2f2f692e6962622e636f2f36303872394c372f53637265656e73686f742d323032332d30362d32352d31382d30392d32392e706e67" alt="Screenshot-2023-06-25-18-09-29" border="0" width="300px" />
 
 ## Menu Utama
 ###### Deskripsi: Ini adalah menu utama dari aplikasi Heaven Green
